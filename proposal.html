@@ -24,7 +24,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--primary);
             background: var(--light);
@@ -379,47 +379,6 @@
             color: var(--primary);
         }
 
-        /* 頁尾 */
-        footer {
-            background: var(--primary);
-            color: var(--white);
-            padding: 40px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        /* 響應式 */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .comparison-grid,
-            .advantages-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            h2 {
-                font-size: 28px;
-            }
-
-            .container {
-                padding: 0 20px;
-            }
-
-            nav {
-                padding: 0 20px;
-            }
-        }
-
         /* 認證徽章 */
         .certifications {
             display: grid;
@@ -461,6 +420,86 @@
         .cta-section p {
             margin-bottom: 30px;
             font-size: 16px;
+        }
+
+        /* 聯繫區塊更新 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .contact-info-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: left;
+        }
+
+        .contact-info-card h4 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        .contact-detail {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .contact-detail strong {
+            display: inline-block;
+            width: 80px;
+        }
+
+        /* 頁尾 */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .comparison-grid,
+            .advantages-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .certifications {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
     </style>
 </head>
@@ -691,7 +730,7 @@
 
             <div class="advantage-card">
                 <h4>✅ 合規保障</h4>
-                <p>Lw 19分貝，符合台灣2021年樓板隔音新制。內建環保再生天然纖維底墊，富懋建材提供台灣本地測報，合規有據。</p>
+                <p>Lw 19分貝，符合台灣2021年樓板隔音新制。內建環保再生天然纖維底墊，提供台灣本地測報，合規有據。</p>
             </div>
         </div>
 
@@ -771,61 +810,54 @@
             </table>
         </div>
 
-        <div style="background: var(--white); padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 40px;">
-            <h3 style="margin-bottom: 25px;">服務支援</h3>
+        <div class="cta-section">
+            <h3>準備好升級建案品質了嗎？</h3>
+            <p>與中部地區 EGGER 大型建案領導供應商合作，為惠宇住戶創造更優質的居住體驗。</p>
             
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
-                <div>
-                    <h4 style="margin-bottom: 15px;">技術支援</h4>
-                    <ul style="list-style: none;">
-                        <li style="padding: 8px 0;">✓ 施工團隊培訓</li>
-                        <li style="padding: 8px 0;">✓ 現場施工指導</li>
-                        <li style="padding: 8px 0;">✓ 品質檢驗標準</li>
-                        <li style="padding: 8px 0;">✓ 保固服務</li>
-                    </ul>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h4>📍 中部地區服務據點</h4>
+                    <p style="font-weight: bold; margin-bottom: 15px; color: var(--primary);">富盛建材股份有限公司 (Full Shine)</p>
+                    <div class="contact-detail"><strong>電話：</strong>04-2335-7000</div>
+                    <div class="contact-detail"><strong>地址：</strong>台中市烏日區環中路八段1121巷167弄7號</div>
+                    <div class="contact-detail"><strong>門市：</strong>台中市南屯區五權西路二段386號1樓</div>
+                    <div class="contact-detail"><strong>官網：</strong><a href="https://www.fullshine.com.tw/" target="_blank" style="color: var(--accent);">www.fullshine.com.tw</a></div>
                 </div>
-                <div>
-                    <h4 style="margin-bottom: 15px;">市場支援</h4>
-                    <ul style="list-style: none;">
-                        <li style="padding: 8px 0;">✓ 行銷物料提供</li>
-                        <li style="padding: 8px 0;">✓ 購屋者教育</li>
-                        <li style="padding: 8px 0;">✓ 樣品展示間</li>
-                        <li style="padding: 8px 0;">✓ 長期合作夥伴關係</li>
+                <div class="contact-info-card">
+                    <h4>🏆 為什麼選擇富盛建材？</h4>
+                    <ul style="list-style: none; font-size: 14px;">
+                        <li style="margin-bottom: 10px;">✓ <strong>中部實績第一</strong>：台中地區多數 EGGER 大型建案均由富盛成交。</li>
+                        <li style="margin-bottom: 10px;">✓ <strong>專業技術團隊</strong>：提供 45 天高效完工與工程一年保固。</li>
+                        <li style="margin-bottom: 10px;">✓ <strong>全台經銷網絡</strong>：擁有 520 坪展示及倉儲中心，供貨穩定。</li>
+                        <li style="margin-bottom: 10px;">✓ <strong>深厚在地連結</strong>：2000 年成立至今，深耕中台灣建材市場 25 年。</li>
                     </ul>
                 </div>
             </div>
-        </div>
-
-        <div class="cta-section">
-            <h3>準備好升級建案品質了嗎？</h3>
-            <p>與EGGER合作，為惠宇住戶創造更優質的居住體驗。<br>讓我們一起打造台中高端建案的新標竿。</p>
-            <button class="btn" onclick="alert('感謝您的興趣！請聯繫富懋建材進行進一步洽談。')">聯繫我們</button>
+            
+            <div style="margin-top: 40px;">
+                <a href="tel:0423357000" class="btn">立即致電洽詢</a>
+                <a href="https://www.fullshine.com.tw/contact" target="_blank" class="btn btn-secondary" style="margin-left: 10px;">線上預約諮詢</a>
+            </div>
         </div>
     </section>
 
     <!-- 頁尾 -->
     <footer>
         <p>EGGER × 惠宇建設 高端地板合作提案</p>
-        <p style="margin-top: 10px; opacity: 0.8;">資料來源：惠宇建設官網、豐鑫國際木業、EGGER官方網站、富懋建材</p>
+        <p style="margin-top: 10px; opacity: 0.8;">中部指定合作夥伴：富盛建材股份有限公司</p>
+        <p style="margin-top: 10px; opacity: 0.8;">資料來源：惠宇建設官網、富盛建材官網、EGGER官方網站</p>
         <p style="margin-top: 10px; opacity: 0.8;">© 2026 All Rights Reserved</p>
     </footer>
 
     <script>
         // 標籤頁切換
         function switchTab(event, tabName) {
-            // 隱藏所有標籤內容
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
-
-            // 移除所有按鈕的 active 類
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-
-            // 顯示選中的標籤內容
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
-
-            // 如果是圖表視圖，初始化圖表
             if (tabName === 'chart-view') {
                 setTimeout(() => {
                     initComparisonChart();
@@ -837,12 +869,9 @@
         function initComparisonChart() {
             const ctx = document.getElementById('comparisonChart');
             if (!ctx) return;
-
-            // 如果圖表已存在，銷毀它
             if (window.comparisonChartInstance) {
                 window.comparisonChartInstance.destroy();
             }
-
             window.comparisonChartInstance = new Chart(ctx, {
                 type: 'radar',
                 data: {
@@ -874,28 +903,21 @@
                     plugins: {
                         legend: {
                             position: 'bottom',
-                            labels: {
-                                font: { size: 12 },
-                                padding: 20
-                            }
+                            labels: { font: { size: 12 }, padding: 20 }
                         }
                     },
                     scales: {
                         r: {
                             beginAtZero: true,
                             max: 5,
-                            ticks: {
-                                stepSize: 1
-                            }
+                            ticks: { stepSize: 1 }
                         }
                     }
                 }
             });
         }
 
-        // 頁面加載時初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 平滑滾動
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
