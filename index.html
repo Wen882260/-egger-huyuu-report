@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EGGER × 惠宇建設 | 市場進入策略研究報告</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --primary: #2C3E50;
+      --accent: #E74C3C;
+      --gold: #D4A843;
+      --green: #27AE60;
+      --light-bg: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --text: #2C3E50;
+      --text-light: #7F8C8D;
+      --border: #E0E0E0;
+      --egger-red: #C0392B;
+      --huyuu-dark: #1A252F;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+      background: var(--light-bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1A252F 0%, #2C3E50 50%, #34495E 100%);
+      color: white;
+      padding: 80px 40px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(212,168,67,0.2);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .hero-stat .label {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      background: white;
+      border-bottom: 2px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 40px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .nav a {
+      padding: 16px 20px;
+      text-decoration: none;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav a:hover, .nav a.active {
+      color: var(--egger-red);
+      border-bottom-color: var(--egger-red);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+    section:nth-child(even) {
+      background: white;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .section-title span { color: var(--egger-red); }
+    .section-subtitle {
+      color: var(--text-light);
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+    .section-divider {
+      width: 50px;
+      height: 4px;
+      background: var(--egger-red);
+      margin-bottom: 20px;
+      border-radius: 2px;
+    }
+
+    /* ── CARDS ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ── COMPARISON TABLE ── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .comparison-table th {
+      padding: 16px 20px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .comparison-table th:first-child { text-align: left; }
+    .comparison-table th.col-spc {
+      background: #ECF0F1;
+      color: #555;
+    }
+    .comparison-table th.col-egger {
+      background: var(--egger-red);
+      color: white;
+    }
+    .comparison-table th.col-label {
+      background: var(--primary);
+      color: white;
+    }
+    .comparison-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .comparison-table td:first-child {
+      font-weight: 500;
+      color: var(--primary);
+    }
+    .comparison-table td:not(:first-child) {
+      text-align: center;
+    }
+    .comparison-table tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+    .comparison-table tr:hover td {
+      background: #FFF3F3;
+    }
+    .stars { color: var(--gold); letter-spacing: 1px; }
+    .win { color: var(--green); font-weight: 600; }
+    .lose { color: #BDC3C7; }
+    .badge-win {
+      display: inline-block;
+      background: #E8F8F0;
+      color: var(--green);
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .badge-lose {
+      display: inline-block;
+      background: #F5F5F5;
+      color: #AAA;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+
+    /* ── SWOT ── */
+    .swot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .swot-card {
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .swot-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .swot-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .swot-card ul li {
+      padding: 6px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .swot-card ul li::before {
+      content: '▸';
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .swot-s { background: linear-gradient(135deg, #1A5276, #2980B9); color: white; }
+    .swot-w { background: linear-gradient(135deg, #922B21, #E74C3C); color: white; }
+    .swot-o { background: linear-gradient(135deg, #1E8449, #27AE60); color: white; }
+    .swot-t { background: linear-gradient(135deg, #7D6608, #D4AC0D); color: white; }
+
+    /* ── STRATEGY CARDS ── */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .strategy-card {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border-left: 5px solid var(--egger-red);
+      transition: transform 0.2s;
+    }
+    .strategy-card:hover { transform: translateY(-3px); }
+    .strategy-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--egger-red);
+      opacity: 0.2;
+      line-height: 1;
+      margin-bottom: -10px;
+    }
+    .strategy-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .strategy-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+    .strategy-card .tag {
+      display: inline-block;
+      background: #FEE9E8;
+      color: var(--egger-red);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* ── SPEC TABLE ── */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .spec-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-table td {
+      padding: 12px 16px;
+      font-size: 0.9rem;
+    }
+    .spec-table td:first-child {
+      color: var(--text-light);
+      width: 40%;
+      font-weight: 500;
+    }
+    .spec-table td:last-child {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -34px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--egger-red);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--egger-red);
+    }
+    .timeline-item h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .timeline-item p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* ── CHART CONTAINERS ── */
+    .chart-wrapper {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border: 1px solid var(--border);
+    }
+    .chart-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* ── CERT BADGES ── */
+    .cert-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .cert-badge {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 130px;
+      transition: border-color 0.2s;
+    }
+    .cert-badge:hover { border-color: var(--egger-red); }
+    .cert-badge .cert-icon { font-size: 2rem; margin-bottom: 8px; }
+    .cert-badge .cert-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .cert-badge .cert-desc {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    /* ── PITCH STRUCTURE ── */
+    .pitch-step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+      transition: transform 0.2s;
+    }
+    .pitch-step:hover { transform: translateX(6px); }
+    .pitch-step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--egger-red);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pitch-step-content h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .pitch-step-content p {
+      font-size: 0.88rem;
+      color: var(--text-light);
+    }
+
+    /* ── INFO BOXES ── */
+    .info-box {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .info-box-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .info-box h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .info-box p { font-size: 0.88rem; line-height: 1.6; }
+    .info-box.blue { background: #EBF5FB; border-left: 4px solid #2980B9; }
+    .info-box.blue h4 { color: #1A5276; }
+    .info-box.green { background: #E9F7EF; border-left: 4px solid #27AE60; }
+    .info-box.green h4 { color: #1E8449; }
+    .info-box.red { background: #FDEDEC; border-left: 4px solid #E74C3C; }
+    .info-box.red h4 { color: #922B21; }
+    .info-box.yellow { background: #FEF9E7; border-left: 4px solid #F1C40F; }
+    .info-box.yellow h4 { color: #7D6608; }
+
+    /* ── TWO COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 768px) {
+      .two-col { grid-template-columns: 1fr; }
+      .swot-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--huyuu-dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 0.85rem;
+    }
+    footer strong { color: white; }
+
+    /* ── TABS ── */
+    .tab-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--egger-red);
+      border-color: var(--egger-red);
+      color: white;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: linear-gradient(135deg, #1A252F, #2C3E50);
+      color: white;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin: 40px 0;
+    }
+    .highlight-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: var(--gold);
+    }
+    .highlight-box p {
+      font-size: 1rem;
+      opacity: 0.85;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-item {
+      margin-bottom: 20px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .progress-bar {
+      height: 10px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 1s ease;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">市場進入策略研究報告</div>
+  <h1>EGGER <span>超耐磨木地板</span><br>× 惠宇建設 合作策略分析</h1>
+  <p>深入研究惠宇建設品牌定位、SPC地板使用現況，提供 EGGER AquaDura+ 防潮72小時系列打進惠宇建案的完整策略方針與利弊分析</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num">35+</div>
+      <div class="label">惠宇建設深耕年數</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">72hr</div>
+      <div class="label">EGGER防潮保護時效</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">AC5</div>
+      <div class="label">最高商用耐磨等級</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">54+</div>
+      <div class="label">台灣建案合作實績</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#huyuu" class="active">惠宇建設分析</a>
+  <a href="#spc-issues">SPC現況與問題</a>
+  <a href="#egger">EGGER產品規格</a>
+  <a href="#comparison">地板比較</a>
+  <a href="#swot">SWOT分析</a>
+  <a href="#strategy">簡報策略方針</a>
+  <a href="#pitch">簡報結構建議</a>
+</nav>
+
+<!-- SECTION 1: 惠宇建設分析 -->
+<section id="huyuu">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">惠宇建設 <span>品牌分析</span></h2>
+    <p class="section-subtitle">深耕台中35年，台灣中產階級換屋首選品牌</p>
+
+    <div class="two-col fade-in">
+      <div>
+        <div class="info-box blue">
+          <div class="info-box-icon">🏢</div>
+          <div>
+            <h4>公司基本資料</h4>
+            <p>成立於1989年4月7日，資本額約2.63億元。旗下含惠信建設，專注台中市場，是台中最具代表性的在地建商之一。</p>
+          </div>
+        </div>
+        <div class="info-box green">
+          <div class="info-box-icon">🏆</div>
+          <div>
+            <h4>市場地位：「秒殺建商」</h4>
+            <p>惠宇建設被業界稱為「秒殺建商」，開賣即完銷，市場口碑極佳。台中換屋族的首選品牌，購屋者指名度極高。</p>
+          </div>
+        </div>
+        <div class="info-box yellow">
+          <div class="info-box-icon">🎨</div>
+          <div>
+            <h4>品牌美學定位</h4>
+            <p>建築外觀永遠是黑、灰、咖啡色系，一致性極高。從便宜到貴的建案，都維持相同的高端低調美學風格。</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="chart-wrapper">
+          <div class="chart-title">惠宇建設品牌核心優勢雷達圖</div>
+          <canvas id="brandRadarChart" height="280"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <h3 style="font-size:1.2rem; font-weight:600; color:var(--primary); margin-bottom:20px;">2025年主力建案分布</h3>
+      <div class="card-grid fade-in">
+        <div class="card">
+          <div class="card-icon" style="background:#EBF5FB;">🏙️</div>
+          <h3>13期重劃區（南台中）</h3>
+          <p>惠宇大沁、惠宇大然、惠宇拾山。鄰近捷運大慶站，主打河岸景觀與公園宅，規劃2-4房產品。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background:#E9F7EF;">🌿</div>
+          <h3>14期重劃區（北台中）</h3>
+          <p>惠宇和慕、仁平MY PARK、洲際、覞山。鄰近台中巨蛋與漢神洲際，主打3-4房換屋產品。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background:#FEF9E7;">🚇</div>
+          <h3>機捷特區</h3>
+          <p>惠宇MORI，步行10分鐘抵達捷運松竹站，雙鐵共構，主打交通便利的都會宅。</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <h3 style="font-size:1.2rem; font-weight:600; color:var(--primary); margin-bottom:20px;">惠宇建案標配建材規格</h3>
+      <div class="two-col fade-in">
+        <div class="chart-wrapper">
+          <table class="spec-table">
+            <tr><td>地板</td><td>SPC石塑地板（含隔音墊）</td></tr>
+            <tr><td>窗戶</td><td>YKK氣密窗 8+10+8 中空玻璃</td></tr>
+            <tr><td>樓高</td><td>3.6米（112年起標配）</td></tr>
+            <tr><td>降噪</td><td>地板含隔音墊，厚度達20cm</td></tr>
+            <tr><td>衛浴</td><td>TOTO衛浴設備</td></tr>
+            <tr><td>家電</td><td>Electrolux四機</td></tr>
+            <tr><td>管線</td><td>全棟不鏽鋼管線</td></tr>
+            <tr><td>水質</td><td>軟水系統</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="info-box red">
+            <div class="info-box-icon">🎯</div>
+            <div>
+              <h4>地板供應商現況</h4>
+              <p>惠宇建設長期與豐鑫國際木業（lins-spc.com.tw）合作，採用SPC石塑地板。惠宇上峰、惠宇覞山等多個建案均採用SPC石塑地板作為標配。</p>
+            </div>
+          </div>
+          <div class="info-box blue">
+            <div class="info-box-icon">💡</div>
+            <div>
+              <h4>品牌核心精神</h4>
+              <p>「以人本為核心」，規劃最符合居住需求的格局，公設實用且維護良好，售後服務口碑極佳，創造高轉手率與保值性。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: SPC現況與問題 -->
+<section id="spc-issues" style="background:white;">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">SPC地板 <span>現況與潛在問題</span></h2>
+    <p class="section-subtitle">隔音新制推動SPC成主流，但市場反思聲浪逐漸升高</p>
+
+    <div class="two-col fade-in">
+      <div>
+        <h3 style="font-size:1.1rem; font-weight:600; color:var(--primary); margin-bottom:16px;">建商選用SPC的主要原因</h3>
+        <div class="progress-item">
+          <div class="progress-label"><span>施工效率（無需等待乾燥）</span><span>95%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:95%; background:var(--egger-red);"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>成本控制（省去泥作費用）</span><span>90%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:90%; background:#E67E22;"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>隔音法規合規性</span><span>85%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:85%; background:#F1C40F;"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>防水性能訴求</span><span>80%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:80%; background:#27AE60;"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>泥作師傅人力短缺</span><span>70%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:70%; background:#2980B9;"></div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1.1rem; font-weight:600; color:var(--primary); margin-bottom:16px;">SPC地板已浮現的問題</h3>
+        <div class="info-box red">
+          <div class="info-box-icon">⚠️</div>
+          <div>
+            <h4>耐用年限疑慮</h4>
+            <p>劣質SPC地板使用壽命僅5-8年，常見卡榫斷裂、翹曲變形和表面損壞，住保會收到不少申訴案件。</p>
+          </div>
+        </div>
+        <div class="info-box red">
+          <div class="info-box-icon">♻️</div>
+          <div>
+            <h4>廢棄物處理困難</h4>
+            <p>SPC地板屬事業廢棄物，不可燃也無法回收，台灣合法廢棄物回收廠屈指可數，處理費用不斷攀升。</p>
+          </div>
+        </div>
+        <div class="info-box yellow">
+          <div class="info-box-icon">🌡️</div>
+          <div>
+            <h4>環境敏感性</h4>
+            <p>對溫差、濕度與陽光直射較敏感，若維護不當，容易產生隆起或卡榫斷裂，維修彈性不如木地板。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box fade-in">
+      <h3>市場轉折點已至</h3>
+      <p>2026年台灣迎來史上最大交屋潮，預估14.4萬戶完工交屋。隨著實際使用案例增加，SPC地板的問題逐漸浮現，消費者意識提升，建商面臨品質升級壓力。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: EGGER產品規格 -->
+<section id="egger">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">EGGER <span>AquaDura+ 產品規格</span></h2>
+    <p class="section-subtitle">奧地利品牌，德國製造 — 防潮72小時系列完整規格</p>
+
+    <div class="two-col fade-in">
+      <div>
+        <div class="chart-wrapper">
+          <h3 style="font-size:1rem; font-weight:600; color:var(--primary); margin-bottom:20px;">AquaDura+ 核心規格</h3>
+          <table class="spec-table">
+            <tr><td>防潮時效</td><td>72小時（雙重防水保護）</td></tr>
+            <tr><td>耐磨等級</td><td>AC5（最高商用等級）</td></tr>
+            <tr><td>厚度</td><td>7.5mm / 8mm</td></tr>
+            <tr><td>Classic尺寸</td><td>1292 × 193mm</td></tr>
+            <tr><td>Kingsize尺寸</td><td>1292 × 327mm</td></tr>
+            <tr><td>核心板材</td><td>深色HDF Aqua+（低膨脹）</td></tr>
+            <tr><td>卡扣系統</td><td>Aqua CLIC it! 防水卡扣</td></tr>
+            <tr><td>底墊</td><td>內建環保再生天然纖維底墊</td></tr>
+            <tr><td>隔音等級</td><td>Lw 19分貝</td></tr>
+            <tr><td>材質來源</td><td>80%可再生資源</td></tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem; font-weight:600; color:var(--primary); margin-bottom:16px;">環保認證</h3>
+        <div class="cert-grid">
+          <div class="cert-badge">
+            <div class="cert-icon">🔵</div>
+            <div class="cert-name">德國藍天使</div>
+            <div class="cert-desc">低排放、低污染</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">🇫🇷</div>
+            <div class="cert-name">A+ 法國認證</div>
+            <div class="cert-desc">最嚴格甲醛限值</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">🌿</div>
+            <div class="cert-name">M1 北歐標章</div>
+            <div class="cert-desc">最低VOC排放</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">🌲</div>
+            <div class="cert-name">FSC 認證</div>
+            <div class="cert-desc">永續林業管理</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">🏅</div>
+            <div class="cert-name">EPLF 認證</div>
+            <div class="cert-desc">歐洲地板聯合會</div>
+          </div>
+          <div class="cert-badge">
+            <div class="cert-icon">🇺🇸</div>
+            <div class="cert-name">NALFA 認證</div>
+            <div class="cert-desc">北美防潮最高認證</div>
+          </div>
+        </div>
+        <div style="margin-top:20px;">
+          <div class="info-box green">
+            <div class="info-box-icon">🌱</div>
+            <div>
+              <h4>永續材質優勢</h4>
+              <p>無PVC、無塑化劑，木質基材。93%木材來自循環經濟（鋸木廠副產品），7%來自永續林業。廢棄物可回收，對比SPC的事業廢棄物困境，環保優勢顯著。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;" class="fade-in">
+      <div class="chart-wrapper">
+        <div class="chart-title">EGGER AquaDura+ 雙重防水保護機制</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:16px;">
+          <div style="background:#FEF9E7; border-radius:10px; padding:20px; border-left:4px solid #F1C40F;">
+            <h4 style="color:#7D6608; margin-bottom:10px;">🔒 第一重保護：Aqua+ 核心板材</h4>
+            <p style="font-size:0.9rem; color:#555;">深色HDF Aqua+高密度纖維板，低膨脹設計，即使接觸水分也能有效抑制板材膨脹，保持地板結構穩定。</p>
+          </div>
+          <div style="background:#EBF5FB; border-radius:10px; padding:20px; border-left:4px solid #2980B9;">
+            <h4 style="color:#1A5276; margin-bottom:10px;">🔒 第二重保護：Aqua CLIC it! 卡扣</h4>
+            <p style="font-size:0.9rem; color:#555;">防水卡扣安裝系統，有效阻止水分從接縫處滲入，72小時防水保護，通過NALFA最高認證。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: 地板比較 -->
+<section id="comparison" style="background:white;">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">SPC vs EGGER <span>全面性能比較</span></h2>
+    <p class="section-subtitle">從八大維度客觀分析兩種地板的優劣勢</p>
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showTab('tab-table')">📊 性能比較表</button>
+      <button class="tab-btn" onclick="showTab('tab-chart')">📈 雷達圖比較</button>
+      <button class="tab-btn" onclick="showTab('tab-cost')">💰 成本效益分析</button>
+    </div>
+
+    <div id="tab-table" class="tab-content active fade-in">
+      <div style="overflow-x:auto;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th class="col-label">比較項目</th>
+              <th class="col-spc">SPC 石塑地板</th>
+              <th class="col-egger">EGGER AquaDura+</th>
+              <th class="col-label">優勢方</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>防水性</td>
+              <td><span class="stars">★★★★★</span><br><small>完全防水</small></td>
+              <td><span class="stars">★★★★</span><br><small>72小時雙重防水</small></td>
+              <td><span class="badge-lose">SPC</span></td>
+            </tr>
+            <tr>
+              <td>板材穩定性</td>
+              <td><span class="stars">★★★★★</span><br><small>極穩定</small></td>
+              <td><span class="stars">★★★★</span><br><small>低膨脹HDF</small></td>
+              <td><span class="badge-lose">SPC</span></td>
+            </tr>
+            <tr>
+              <td>耐磨性</td>
+              <td><span class="stars">★★★</span><br><small>約AC3等級</small></td>
+              <td><span class="stars">★★★★★</span><br><small>AC5商用等級</small></td>
+              <td><span class="badge-win">EGGER ✓</span></td>
+            </tr>
+            <tr>
+              <td>腳感舒適度</td>
+              <td><span class="stars">★★</span><br><small>較硬、偏冷</small></td>
+              <td><span class="stars">★★★★★</span><br><small>溫潤、自然</small></td>
+              <td><span class="badge-win">EGGER ✓</span></td>
+            </tr>
+            <tr>
+              <td>視覺質感</td>
+              <td><span class="stars">★★★</span><br><small>仿木紋</small></td>
+              <td><span class="stars">★★★★★</span><br><small>高仿真超啞光</small></td>
+              <td><span class="badge-win">EGGER ✓</span></td>
+            </tr>
+            <tr>
+              <td>環保性</td>
+              <td><span class="stars">★★</span><br><small>塑料，難回收</small></td>
+              <td><span class="stars">★★★★★</span><br><small>木質，多項認證</small></td>
+              <td><span class="badge-win">EGGER ✓</span></td>
+            </tr>
+            <tr>
+              <td>隔音效果</td>
+              <td><span class="stars">★★★★</span><br><small>Lw 20分貝</small></td>
+              <td><span class="stars">★★★★</span><br><small>Lw 19分貝</small></td>
+              <td><span class="badge-lose">相當</span></td>
+            </tr>
+            <tr>
+              <td>耐用年限</td>
+              <td><span class="stars">★★★</span><br><small>5-15年</small></td>
+              <td><span class="stars">★★★★★</span><br><small>15-25年以上</small></td>
+              <td><span class="badge-win">EGGER ✓</span></td>
+            </tr>
+            <tr>
+              <td>廢棄物處理</td>
+              <td><span class="stars">★</span><br><small>事業廢棄物</small></td>
+              <td><span class="stars">★★★★</span><br><small>可回收木質廢料</small></td>
+              <td><span class="badge-win">EGGER ✓</span></td>
+            </tr>
+            <tr>
+              <td>建案初期成本</td>
+              <td><span class="stars">★★★★★</span><br><small>較低</small></td>
+              <td><span class="stars">★★★</span><br><small>較高</small></td>
+              <td><span class="badge-lose">SPC</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-chart" class="tab-content">
+      <div style="max-width:600px; margin:0 auto;">
+        <div class="chart-wrapper">
+          <canvas id="comparisonRadarChart" height="350"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-cost" class="tab-content">
+      <div class="two-col">
+        <div class="chart-wrapper">
+          <div class="chart-title">長期成本效益比較（20年計）</div>
+          <canvas id="costChart" height="300"></canvas>
+        </div>
+        <div>
+          <div class="info-box blue">
+            <div class="info-box-icon">📊</div>
+            <div>
+              <h4>初期成本差異</h4>
+              <p>EGGER AquaDura+的初期採購成本比SPC高約20-35%，但考量到更長的使用年限，長期總成本可能更低。</p>
+            </div>
+          </div>
+          <div class="info-box green">
+            <div class="info-box-icon">⏱️</div>
+            <div>
+              <h4>使用年限優勢</h4>
+              <p>EGGER使用年限15-25年以上，SPC劣質品僅5-8年。若20年內需更換一次SPC，總成本可能超過EGGER。</p>
+            </div>
+          </div>
+          <div class="info-box yellow">
+            <div class="info-box-icon">🏠</div>
+            <div>
+              <h4>保值性考量</h4>
+              <p>惠宇建案以高轉手率著稱，EGGER的高品質地板有助於維持房屋保值性，對換屋族而言是重要加分項。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: SWOT分析 -->
+<section id="swot">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">EGGER 打進惠宇建案 <span>SWOT 分析</span></h2>
+    <p class="section-subtitle">全面評估進入惠宇建案市場的機會與挑戰</p>
+
+    <div class="swot-grid fade-in">
+      <div class="swot-card swot-s">
+        <h3>💪 優勢 Strengths</h3>
+        <ul>
+          <li>AC5最高商用耐磨等級，遠超SPC的AC3</li>
+          <li>德國藍天使、A+、M1等多項國際環保認證</li>
+          <li>無PVC、無塑化劑，對住戶健康更友善</li>
+          <li>72小時雙重防水，足夠應對台灣日常潮濕</li>
+          <li>木質溫潤腳感，居住體驗遠優於SPC</li>
+          <li>富懋建材在台已有54個建案合作實績</li>
+          <li>符合台灣2021年樓板隔音新制（Lw 19分貝）</li>
+        </ul>
+      </div>
+      <div class="swot-card swot-w">
+        <h3>⚠️ 劣勢 Weaknesses</h3>
+        <ul>
+          <li>初期採購成本比SPC高20-35%</li>
+          <li>防水性不如SPC（72小時 vs 完全防水）</li>
+          <li>建商與SPC供應商已有長期合作關係</li>
+          <li>施工團隊對SPC更熟悉，需培訓成本</li>
+          <li>台灣消費者對EGGER品牌認知度相對較低</li>
+          <li>板材穩定性略遜於SPC（熱脹冷縮較明顯）</li>
+        </ul>
+      </div>
+      <div class="swot-card swot-o">
+        <h3>🚀 機會 Opportunities</h3>
+        <ul>
+          <li>SPC地板問題浮現，消費者開始反思</li>
+          <li>2026年史上最大交屋潮，建材品質受關注</li>
+          <li>ESG趨勢明顯，環保建材需求增加</li>
+          <li>惠宇持續推高端建案，有空間升級建材</li>
+          <li>競品建商仍用SPC，惠宇可藉此差異化</li>
+          <li>隔音新制持續推進，需要合規地板解決方案</li>
+        </ul>
+      </div>
+      <div class="swot-card swot-t">
+        <h3>🛡️ 威脅 Threats</h3>
+        <ul>
+          <li>SPC廠商可能透過降價維持競爭力</li>
+          <li>Tarkett、Panstone等其他超耐磨品牌競爭</li>
+          <li>建商換供應商需要時間與信任建立</li>
+          <li>大量交屋潮下，建商優先考慮施工效率</li>
+          <li>市場資訊不對稱，建商可能低估EGGER優勢</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: 策略方針 -->
+<section id="strategy" style="background:white;">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">簡報 <span>六大策略方針</span></h2>
+    <p class="section-subtitle">針對惠宇決策者的說服邏輯與核心訴求</p>
+
+    <div class="strategy-grid fade-in">
+      <div class="strategy-card">
+        <div class="strategy-num">01</div>
+        <span class="tag">品牌升級</span>
+        <h3>差異化競爭，率先升級</h3>
+        <p>競品建商仍在使用SPC，惠宇可以率先採用EGGER創造差異化優勢。德國製造、奧地利品牌的歐系質感，完全符合惠宇黑灰咖啡色系的高端低調美學。「您的競爭對手都在用SPC，惠宇可以用EGGER創造差異」。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">02</div>
+        <span class="tag">防潮足夠</span>
+        <h3>72小時防水，應對台灣氣候</h3>
+        <p>AquaDura+的72小時雙重防水保護，已足夠應對台灣日常潮濕環境。雙重防水機制（Aqua+核心板材 + Aqua CLIC it!卡扣）比一般超耐磨更可靠，通過北美NALFA防潮最高認證。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">03</div>
+        <span class="tag">耐磨優勢</span>
+        <h3>AC5耐磨，長期投資更划算</h3>
+        <p>AC5商用等級（約34,000轉），遠超SPC的AC3等級（約15,000轉）。更長的使用壽命等於更低的長期維護成本。對惠宇住戶而言，15-25年不需更換，保值性更高，維護惠宇的售後服務口碑。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">04</div>
+        <span class="tag">ESG環保</span>
+        <h3>環保認證，助攻ESG形象</h3>
+        <p>德國藍天使標章、A+、M1、FSC等多項國際環保認證，無PVC、無塑化劑，對住戶健康更友善。符合ESG趨勢，有助惠宇建設的永續形象，可為綠建築積分加分，在市場中脫穎而出。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">05</div>
+        <span class="tag">居住舒適</span>
+        <h3>木的溫度，以人本為核心</h3>
+        <p>木質地板的溫潤腳感，遠優於SPC的冰冷硬感。超啞光表面，仿真木紋視覺效果更自然。完全契合惠宇「以人本為核心」的品牌精神，讓住戶感受到真正的居住溫度。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">06</div>
+        <span class="tag">合規保障</span>
+        <h3>台灣測報，隔音合規有據</h3>
+        <p>Lw 19分貝，符合台灣2021年樓板隔音新制（58分貝以下）。內建環保再生天然纖維底墊，無需額外購買靜音墊。富懋建材提供台灣本地測報，合規有據，建商交屋無後顧之憂。</p>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;" class="fade-in">
+      <div class="chart-wrapper">
+        <div class="chart-title">六大策略方針重要性評估</div>
+        <canvas id="strategyChart" height="250"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: 簡報結構 -->
+<section id="pitch">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">建議 <span>簡報結構</span></h2>
+    <p class="section-subtitle">10頁完整簡報架構，從市場背景到合作方案</p>
+
+    <div class="two-col fade-in">
+      <div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">1</div>
+          <div class="pitch-step-content">
+            <h4>封面頁：戰略合作提案</h4>
+            <p>EGGER × 惠宇建設，強調「品質升級，差異化競爭」核心主題</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">2</div>
+          <div class="pitch-step-content">
+            <h4>市場背景：SPC地板的現況與問題</h4>
+            <p>隔音新制推動SPC成主流，但耐用年限、廢棄物等問題逐漸浮現</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">3</div>
+          <div class="pitch-step-content">
+            <h4>惠宇品牌分析：定位與客群</h4>
+            <p>秒殺建商、換屋首選、以人本為核心，品牌溢價空間大</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">4</div>
+          <div class="pitch-step-content">
+            <h4>EGGER品牌介紹：歐洲領導品牌</h4>
+            <p>奧地利品牌，德國製造，20年以上歷史，歐洲高品質複合地板領先供應商</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">5</div>
+          <div class="pitch-step-content">
+            <h4>產品規格比較：SPC vs EGGER AquaDura+</h4>
+            <p>八大維度全面比較，以數據說話，突顯EGGER在耐磨、環保、舒適的優勢</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">6</div>
+          <div class="pitch-step-content">
+            <h4>六大優勢論述</h4>
+            <p>品牌升級、防潮足夠、耐磨優勢、環保ESG、居住舒適、合規保障</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">7</div>
+          <div class="pitch-step-content">
+            <h4>成本效益分析</h4>
+            <p>初期成本 vs 長期效益，使用年限、維護成本、保值性全面試算</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">8</div>
+          <div class="pitch-step-content">
+            <h4>合作方案：建議規格與服務</h4>
+            <p>推薦花色系列、報價方案、施工支援、保固服務</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">9</div>
+          <div class="pitch-step-content">
+            <h4>成功案例：54個建案合作實績</h4>
+            <p>富懋建材在台灣已合作54個建案，200-2000坪施作經驗</p>
+          </div>
+        </div>
+        <div class="pitch-step">
+          <div class="pitch-step-num">10</div>
+          <div class="pitch-step-content">
+            <h4>結語：共創品質標竿</h4>
+            <p>「不只是防水，更是品質」—— 邀請惠宇共同引領台中建案新標準</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box fade-in">
+      <h3>🎯 核心說服話術</h3>
+      <p style="margin-bottom:16px;">「您的競爭對手都在用SPC，惠宇可以用EGGER創造差異。您的客戶是換屋族，他們更懂建材，EGGER可以提升他們的滿意度，同時維護惠宇引以為傲的售後服務口碑。」</p>
+      <p>「不只是防水，更是品質。72小時防水已足夠，但AC5耐磨才是真正的長期投資。木的溫度，德國的品質，這才是惠宇住戶應得的居住體驗。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>EGGER × 惠宇建設 市場進入策略研究報告</strong></p>
+  <p style="margin-top:8px;">資料來源：惠宇建設官網、豐鑫國際木業、EGGER官方網站、富懋建材、明峻地板、築佳地板、經濟日報、住展雜誌等</p>
+  <p style="margin-top:8px;">研究日期：2026年3月</p>
+</footer>
+
+<script>
+  // ── NAV ACTIVE STATE ──
+  const navLinks = document.querySelectorAll('.nav a');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // ── FADE IN OBSERVER ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── TABS ──
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ── CHART 1: Brand Radar ──
+  new Chart(document.getElementById('brandRadarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['品牌知名度', '售後服務', '建材品質', '格局規劃', '保值性', '施工品質'],
+      datasets: [{
+        label: '惠宇建設',
+        data: [95, 92, 78, 88, 90, 80],
+        borderColor: '#C0392B',
+        backgroundColor: 'rgba(192,57,43,0.15)',
+        pointBackgroundColor: '#C0392B',
+        pointRadius: 5,
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: { stepSize: 20, font: { size: 11 } },
+          pointLabels: { font: { size: 12, family: 'PingFang TC, Microsoft JhengHei, sans-serif' } }
+        }
+      }
+    }
+  });
+
+  // ── CHART 2: Comparison Radar ──
+  new Chart(document.getElementById('comparisonRadarChart'), {
+    type: 'radar',
+    data: {
+      labels: ['防水性', '板材穩定性', '耐磨性', '腳感舒適', '視覺質感', '環保性', '隔音效果', '耐用年限'],
+      datasets: [
+        {
+          label: 'SPC 石塑地板',
+          data: [100, 95, 55, 40, 60, 35, 80, 55],
+          borderColor: '#95A5A6',
+          backgroundColor: 'rgba(149,165,166,0.2)',
+          pointBackgroundColor: '#95A5A6',
+          pointRadius: 4,
+          borderWidth: 2
+        },
+        {
+          label: 'EGGER AquaDura+',
+          data: [75, 80, 95, 95, 95, 95, 78, 95],
+          borderColor: '#C0392B',
+          backgroundColor: 'rgba(192,57,43,0.15)',
+          pointBackgroundColor: '#C0392B',
+          pointRadius: 4,
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 12 } } }
+      },
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: { stepSize: 25, font: { size: 10 } },
+          pointLabels: { font: { size: 11, family: 'PingFang TC, Microsoft JhengHei, sans-serif' } }
+        }
+      }
+    }
+  });
+
+  // ── CHART 3: Cost Chart ──
+  new Chart(document.getElementById('costChart'), {
+    type: 'bar',
+    data: {
+      labels: ['初期成本', '5年維護', '10年維護', '15年維護', '20年總成本'],
+      datasets: [
+        {
+          label: 'SPC 石塑地板',
+          data: [100, 15, 30, 120, 265],
+          backgroundColor: 'rgba(149,165,166,0.7)',
+          borderColor: '#95A5A6',
+          borderWidth: 1
+        },
+        {
+          label: 'EGGER AquaDura+',
+          data: [135, 5, 10, 15, 165],
+          backgroundColor: 'rgba(192,57,43,0.7)',
+          borderColor: '#C0392B',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) { return ctx.dataset.label + ': ' + ctx.raw + ' 指數'; }
+          }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, title: { display: true, text: '相對成本指數（SPC初期=100）' } }
+      }
+    }
+  });
+
+  // ── CHART 4: Strategy Importance ──
+  new Chart(document.getElementById('strategyChart'), {
+    type: 'bar',
+    data: {
+      labels: ['品牌升級', '防潮足夠', '耐磨優勢', 'ESG環保', '居住舒適', '合規保障'],
+      datasets: [{
+        label: '對惠宇決策者的說服力',
+        data: [92, 78, 88, 85, 82, 75],
+        backgroundColor: [
+          'rgba(192,57,43,0.8)',
+          'rgba(41,128,185,0.8)',
+          'rgba(39,174,96,0.8)',
+          'rgba(39,174,96,0.8)',
+          'rgba(243,156,18,0.8)',
+          'rgba(142,68,173,0.8)'
+        ],
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) { return '說服力指數: ' + ctx.raw + '/100'; }
+          }
+        }
+      },
+      scales: {
+        x: { min: 0, max: 100, title: { display: true, text: '說服力指數（0-100）' } }
+      }
+    }
+  });
+</script>
+</body>
+</html>
